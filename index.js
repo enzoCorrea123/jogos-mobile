@@ -12,6 +12,7 @@ export default function App() {
   const [player1, setPlayer1] = useState("");
   const [player2, setPlayer2] = useState("");
   const [palavra, setPalavra] = useState("");
+  const [dica, setDica] = useState("");
   const [id, setId] = useState(0);
   const [screen, setScreen] = useState("Homepage");
   const checkScreen = (checkScreen) => checkScreen === screen;
@@ -25,15 +26,18 @@ export default function App() {
   const trocarId = (_id) => {
     setId(_id);
   }
+  const setDicaForca = (_dica)=>{
+    setDica(_dica)
+  }
   const changeScreen = (newScreen) => setScreen(newScreen);
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       {checkScreen("Homepage") && <Homepage changeScreen={changeScreen} mudarId={trocarId}/>}
-      {checkScreen("Nomes") && <Nomes mudarNomeJogadores={setJogadores} changeScreen={changeScreen} idJogo={id}/>}
+      {checkScreen("Nomes") && <Nomes mudarNomeJogadores={setJogadores} changeScreen={changeScreen} idJogo={id} />}
       {checkScreen("Velha") && <Velha nomeJogador1={player1} nomeJogador2={player2} changeScreen={changeScreen}  />}
-      {checkScreen("Palavra") && <Palavra changeScreen={changeScreen} mudarPalavra={setPalavraForca} />}
-      {checkScreen("Forca") && <Forca changeScreen={changeScreen} palavraForca={palavra} />}
+      {checkScreen("Palavra") && <Palavra changeScreen={changeScreen} mudarPalavra={setPalavraForca} setDicaForca={setDicaForca}/>}
+      {checkScreen("Forca") && <Forca changeScreen={changeScreen} palavraForca={palavra} dicaForca={dica}  />}
       {checkScreen("Memoria") && <Memoria changeScreen={changeScreen} nomeJogador1={player1} nomeJogador2={player2}/>}
 
     </View>

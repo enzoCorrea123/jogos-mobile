@@ -155,6 +155,7 @@ export default function Forca(props) {
             <View style={styles.divChute}>
                 <View style={styles.erros}>
                     <Text style={styles.text} >{usadas}</Text>
+                    <Text style={styles.text} >Dica: {props.dicaForca}</Text>
                 </View>
                 <View style={styles.divInput}>
                     <Text style={styles.text} >{linhas}</Text>

@@ -48,9 +48,10 @@ export default function Memoria(props) {
               card[i] = "";
             }
           }
-          changePlayer();
+          
           
         })
+        changePlayer();
         setEmptyCards([...cards1]);
         setSelectedCards([]);
       },1000)
