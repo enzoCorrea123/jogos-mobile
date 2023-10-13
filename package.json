@@ -18,7 +18,8 @@
     "react-native-web": "^0.19.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "gh-pages": "^6.0.0"
   },
   "private": true
 }
