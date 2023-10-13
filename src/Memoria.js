@@ -32,16 +32,46 @@ export default function Memoria(props) {
   const checkPlay = ()=>{
     if(selectedCards[0] == selectedCards[1]){
       if(currentPlayer == player1){
-        setScore1(score1++);//terminar checkplay
+        setScore1(score1+1);
       }else{
-        setScore2(score2++);
+        setScore2(score2+1);
+        
       }
+      setSelectedCards([]);
 
     }else{
       setTimeout(()=>{
-
-    },1000)
+        const cards1 = [[...emptyCards[0]],[...emptyCards[1]],[...emptyCards[2]],[...emptyCards[3]],[...emptyCards[4]],[...emptyCards[5]],[...emptyCards[6]],[...emptyCards[7]],[...emptyCards[8]],[...emptyCards[9]]];
+        cards1.map((card)=>{
+          for(let i=0;i<card.length;i++){
+            if(card[i] == selectedCards[0] || card[i] == selectedCards[1]){
+              card[i] = "";
+            }
+          }
+          changePlayer();
+          
+        })
+        setEmptyCards([...cards1]);
+        setSelectedCards([]);
+      },1000)
     }
+  }
+  const checkVictory = ()=>{
+    let fullBoard = true;
+    emptyCards.forEach((card)=>{
+      for(let i=0;i<card.length;i++){
+        if(card[i] == ""){
+          return fullBoard = false;
+        }
+      }
+    })
+    if(fullBoard){
+      setTimeout(()=>{
+        (score1>score2)? alert(`${player1} venceu!`) : (score2>score1)? alert(`${player2} venceu!`) : alert(`${player1} X ${player2}`);
+      },100)
+      
+    }
+    
   }
   useEffect(() => {
     shuffledCards();
@@ -51,31 +81,33 @@ export default function Memoria(props) {
       checkPlay();
       
     }
-  }, []);
+  }, [selectedCards]);
+
+  useEffect(()=>{
+    checkVictory()
+  },[emptyCards])
   const handleClickPosition = (rowId, columnId) => {
    const cards1 = [[...emptyCards[0]],[...emptyCards[1]],[...emptyCards[2]],[...emptyCards[3]],[...emptyCards[4]],[...emptyCards[5]],[...emptyCards[6]],[...emptyCards[7]],[...emptyCards[8]],[...emptyCards[9]]];
    const cards2 = [...fullCards];
    const selected = [...selectedCards];
-
+   console.log(cards2)
    if(cards1[rowId][columnId] != ""){
      return;
    }else{
-     if(selected.length<2){
         cards1[rowId][columnId] = cards2[rowId*5 + columnId]; 
         selected.push(cards1[rowId][columnId]);
         setEmptyCards([...cards1]);
         setSelectedCards(selected);
-     }else{
-       checkPlay();
-     }
-      
    }
 
    
   };
   return (
     <View style={styles.container}>
+      <Text>{player1}:{score1}</Text>
+      <Text>{player2}:{score2}</Text>
       <Text>É a vez de {currentPlayer}</Text>
+      
       {emptyCards.map((row, rowId) => {
         return (
           <View style={styles.rows} key={rowId}>
