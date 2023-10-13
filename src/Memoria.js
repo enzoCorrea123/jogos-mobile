@@ -21,6 +21,10 @@ export default function Memoria(props) {
   const [emojis, setEmoji] = useState(["🚗","🚌", "🚓", "🚑", "🛴", "🚲", "🚀", "✈️", "🛶", "🗿", "🏰", "🏝", "⏰", 
   "☎️", "🗡", "💉", "🎈", "🎻", "🎺", "🎮", "⚽️", "🏈", "🎧", "🏓", "🌻"]);
   const [selectedCards, setSelectedCards] = useState([]);
+  const backHome = () => {
+        props.changeScreen("Homepage");
+    
+}
   const shuffledCards = ()=>{
     const shuffle = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
     setfullCards(shuffle);
@@ -70,6 +74,7 @@ export default function Memoria(props) {
       setTimeout(()=>{
         (score1>score2)? alert(`${player1} venceu!`) : (score2>score1)? alert(`${player2} venceu!`) : alert(`${player1} X ${player2}`);
       },100)
+      backHome()
       
     }
     
@@ -105,9 +110,9 @@ export default function Memoria(props) {
   };
   return (
     <View style={styles.container}>
-      <Text>{player1}:{score1}</Text>
-      <Text>{player2}:{score2}</Text>
-      <Text>É a vez de {currentPlayer}</Text>
+      <Text style={styles.txt2}>{player1}:{score1}</Text>
+      <Text style={styles.txt2}>{player2}:{score2}</Text>
+      <Text style={styles.txt2}>É a vez de {currentPlayer}</Text>
       
       {emptyCards.map((row, rowId) => {
         return (
@@ -127,13 +132,15 @@ export default function Memoria(props) {
           </View>
         );
       })}
+      <Pressable style={styles.button} onPress={()=>{backHome()}}><Text>Voltar</Text></Pressable>
     </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center"
+    justifyContent: "center",
+    alignItems: "center"
   },
   rows:{
     flexDirection: "row"
@@ -149,5 +156,22 @@ const styles = StyleSheet.create({
   },
   txt: {
     fontSize: 30,
+  },
+  txt2:{
+    fontSize: 20
+  },
+  button: {
+    width: 70,
+    height: 25,
+    margin: 10,
+    backgroundColor: "#41B3FF",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    // borderColor: "black",
+    // borderStyle: "solid",
+    // borderWidth: 1
+    shadowColor: "black",
+    shadowRadius: 5
   }
 });
