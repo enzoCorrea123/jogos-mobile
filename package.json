@@ -4,7 +4,7 @@
   "homepage": "https://enzoCorrea123.github.io/jogos-mobile",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "predeploy": "npm run build",
+    "predeploy": "npm run web",
     "deploy": "gh-pages -d build",
     "start": "expo start",
     "android": "expo start --android",
