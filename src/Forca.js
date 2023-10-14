@@ -91,13 +91,15 @@ export default function Forca(props) {
         const novoArrayLinha = [...linhas];
         const novoArrayUsada = [...usadas];
 
+        const tentativa = chute.toUpperCase();
+
         let cont = 0;
 
-        if (chute.length == 1) {
+        if (tentativa.length == 1) {
             for (let i = 0; i < props.palavraForca.length; i++) {
-                if (chute == props.palavraForca.charAt(i)) {
+                if (tentativa == props.palavraForca.charAt(i)) {
                     cont++;
-                    novoArrayLinha[i] = chute;
+                    novoArrayLinha[i] = tentativa;
                     setLinhas(novoArrayLinha);
                     setChute("");
 
@@ -105,12 +107,12 @@ export default function Forca(props) {
 
                 if (i == props.palavraForca.length - 1 && cont == 0) {
                     novoArrayUsada.forEach((letra) => {
-                        if (letra == chute) {
+                        if (letra == tentativa) {
                             cont++;
                         }
                     })
                     if (cont == 0) {
-                        novoArrayUsada.push(chute)
+                        novoArrayUsada.push(tentativa)
                         setErros(erros + 1);
                         setChute("");
                     }
@@ -126,16 +128,20 @@ export default function Forca(props) {
             setUsadas(novoArrayUsada)
             cont = 0
 
-        } else if (chute.length < linhas.length || chute.length > linhas.length) {
+        } else if (tentativa.length < linhas.length || tentativa.length > linhas.length) {
             setChute("");
+            novoArrayUsada.push(` ${tentativa}`);
+            setUsadas(novoArrayUsada)
             setErros(erros + 1);
 
-        } else if (chute.length == linhas.length) {
-            if (chute === props.palavraForca) {
-                setLinhas(chute);
+        } else if (tentativa.length == linhas.length) {
+            if (tentativa === props.palavraForca) {
+                setLinhas(tentativa);
                 backHome();
             } else {
                 setErros(erros + 1);
+                novoArrayUsada.push(` ${tentativa}`);
+                setUsadas(novoArrayUsada)
                 setChute("");
 
             }
@@ -155,12 +161,15 @@ export default function Forca(props) {
             <View style={styles.divChute}>
                 <View style={styles.erros}>
                     <Text style={styles.text} >{usadas}</Text>
-                    <Text style={styles.text} >Dica: {props.dicaForca}</Text>
+                    <Text style={styles.text} >Dica: {props.dicaForca.toUpperCase()}</Text>
                 </View>
                 <View style={styles.divInput}>
                     <Text style={styles.text} >{linhas}</Text>
                     <TextInput style={styles.input} onChangeText={setChute} value={chute} placeholder="Faça seu chute:"></TextInput>
-                    <Pressable style={styles.button} onPress={handleCLick}><Text style={styles.textButton}>Confirmar</Text></Pressable>
+                    <View style={styles.flexButton}>
+                        <Pressable style={styles.button} onPress={handleCLick}><Text style={styles.textButton}>Confirmar</Text></Pressable>
+                        <Pressable style={styles.button} onPress={()=>{backHome()}}><Text>Voltar</Text></Pressable>
+                    </View>
                 </View>
             </View>
 
@@ -173,7 +182,7 @@ export default function Forca(props) {
 const styles = StyleSheet.create({
     input: {
         marginTop: 30,
-        width: 150,
+        width: 160,
         height: 20,
         backgroundColor: "white",
         borderStyle: "solid",
@@ -181,8 +190,12 @@ const styles = StyleSheet.create({
         borderColor: "black",
         fontSize: 15
     },
+    flexButton:{
+        flexDirection: "row",
+        marginLeft: -10
+      },
     button: {
-        width: 90,
+        width: 70,
         height: 30,
         margin: 10,
         backgroundColor: "#41B3FF",
@@ -200,10 +213,11 @@ const styles = StyleSheet.create({
     divChute: {
         flex: 1,
         justifyContent: "center",
-        gap: 10
+        gap: 20
     },
     erros: {
-        height: 20
+        height: 20,
+        marginBottom: 20
     },
     divInput: {
         fontSize: 15
