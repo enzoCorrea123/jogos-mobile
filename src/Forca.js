@@ -120,9 +120,26 @@ export default function Forca(props) {
                 }
             }
 
-            if (props.palavraForca.includes(novoArrayLinha.join(""))) {
-                alert("Você ganhou")
-                backHome();
+            let podeValidar = true
+            novoArrayLinha.forEach((letra)=>{
+                if(letra == " _ "){
+                    podeValidar = false;
+                    console.log('foi')
+                    return;
+                }
+                
+            })
+            if(podeValidar){
+                for(let i = 0;i<novoArrayLinha.length;i++){
+                    if(novoArrayLinha[i] == '/'){
+                        novoArrayLinha[i] = " ";
+
+                    }
+                }
+                if (props.palavraForca.includes(novoArrayLinha.join(''))) {
+                    alert("Você ganhou")
+                    backHome();
+                }
             }
 
             setUsadas(novoArrayUsada)
