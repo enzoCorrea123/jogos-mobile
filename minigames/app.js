@@ -8,6 +8,7 @@ import Palavra from './src/Palavra';
 import Forca from './src/Forca';
 import Memoria from './src/Memoria';
 import Usememo from './src/usememo';
+import Home2 from './src/Home2';
 export default function App() {
   //criar estado para fazer o controle do textinput, use state atualiza ao chamar a função                     
   const [player1, setPlayer1] = useState("");
@@ -15,7 +16,7 @@ export default function App() {
   const [palavra, setPalavra] = useState("");
   const [dica, setDica] = useState("");
   const [id, setId] = useState(0);
-  const [screen, setScreen] = useState("usememo");
+  const [screen, setScreen] = useState("Home2");
   const checkScreen = (checkScreen) => checkScreen === screen;
   const setPalavraForca = (_palavra) => {
     setPalavra(_palavra)
@@ -41,6 +42,7 @@ export default function App() {
       {checkScreen("Forca") && <Forca changeScreen={changeScreen} palavraForca={palavra} dicaForca={dica}  />}
       {checkScreen("Memoria") && <Memoria changeScreen={changeScreen} nomeJogador1={player1} nomeJogador2={player2}/>}
       {checkScreen("usememo") && <Usememo/>}
+      {checkScreen("Home2") && <Home2/>}
 
     </View>
   );

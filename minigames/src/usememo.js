@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Button, Text, View } from "react-native";
+import Pagina1 from "./pagina1";
+import Pagina2 from "./pagina2";
 export default function Homepage(props) {
     const [contador,setContador] = useState(0)
     const [contador2,setContador2] = useState(0)
@@ -40,6 +42,8 @@ export default function Homepage(props) {
             <Text>Contador 2: {contador2}</Text>
             <Button title='Click' onPress={()=> setContador2(contador2+1)}></Button>
             {array}
+            <Pagina1/>
+            <Pagina2/>
         </View>
         
     )
